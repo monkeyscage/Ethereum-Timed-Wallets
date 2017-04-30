@@ -12,12 +12,6 @@ panicAddress=panic;
 wait=interval;
 }
 
-function panic(){
-if(msg.sender!=owner)throw;
-if(!send(panicAddress,this.balance))throw;
-kill();
-}
-
 function RequestWithdraw(uint tot){
 if(msg.sender!=owner)throw;
 request=block.number;
@@ -30,7 +24,13 @@ if(block.number<request+wait)throw;
 if(!send(a,amount))throw;
 }
 
-//destroy box
+function panic(){
+if(msg.sender!=owner)throw;
+if(!send(panicAddress,this.balance))throw;
+kill();
+}
+
+//destroy safe
 function kill(){
 if(msg.sender!=owner)throw;
 selfdestruct(owner);
