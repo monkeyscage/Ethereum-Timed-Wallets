@@ -27,6 +27,12 @@ if(!send(a,amount))throw;
 amount=0;
 }
 
+function status()constant returns(uint,amount){
+uint countdown=0; //blocks countdown to withdraw
+if(block.number<request+wait)countdown=request+wait-blocknumber;
+return(countdown,amount);
+}
+
 function panic(){
 if(msg.sender!=owner)throw;
 if(!send(panicAddress,this.balance))throw;
