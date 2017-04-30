@@ -32,7 +32,7 @@ if(!send(a,amount))throw;
 
 //destroy box
 function kill(){
-if (msg.sender != owner)throw;
+if(msg.sender!=owner)throw;
 selfdestruct(owner);
 }
 
