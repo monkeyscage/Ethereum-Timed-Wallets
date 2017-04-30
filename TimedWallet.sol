@@ -6,9 +6,9 @@ uint public request; //the moment of the request
 address panicAddress; //a secondary panic address in case of problems
 uint public amount; //the amount to withdraw at the requested time
 
-function TimedWallet(address o,address safe,uint interval){
-owner=o;
-panicAddress=safe;
+function TimedWallet(address own,address panic,uint interval){
+owner=own;
+panicAddress=panic;
 wait=interval;
 }
 
@@ -28,13 +28,6 @@ function Withdraw(address a){
 if(msg.sender!=owner)throw;
 if(block.number<request+wait)throw;
 if(!send(a,amount))throw;
-}
-
-//change owner
-function manager(address o)returns(bool){
-if(msg.sender!=owner)throw;
-owner=o;
-return true;
 }
 
 //destroy box
