@@ -1,13 +1,14 @@
 contract TimedWallet(){
 address public owner;
-uint public blocksInterval; //the time needed to unlock
+uint public wait; //the time needed to unlock
 uint public request; //the moment of the request
-address safeAddress;
-uint public amount;
+address safeAddress; //a secondary panic address in case of problems
+uint public amount; //the amount to withdraw at the requested time
 
-function TimedWallet(address o,address safe){
+function TimedWallet(address o,address safe,uint interval){
 owner=o;
 safeAddress=safe;
+wait=interval;
 }
 
 function panic(){
@@ -24,7 +25,7 @@ amount=tot;
 
 function Withdraw(address a){
 if(msg.sender!=owner)throw;
-if(block.number<request+blocksInterval)throw;
+if(block.number<request+wait)throw;
 if(!send(a,amount))throw;
 }
 
