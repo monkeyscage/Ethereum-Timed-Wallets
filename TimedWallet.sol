@@ -20,9 +20,11 @@ amount=tot;
 }
 
 function Withdraw(address a){
+if(amount==0)throw;
 if(msg.sender!=owner)throw;
 if(block.number<request+wait)throw;
 if(!send(a,amount))throw;
+amount=0;
 }
 
 function panic(){
