@@ -10,6 +10,7 @@ function TimedWallet(address own,address panic,uint interval){
 owner=own;
 panicAddress=panic;
 wait=interval;
+amount=0;
 }
 
 function RequestWithdraw(uint tot){
@@ -27,13 +28,6 @@ if(!send(a,amount))throw;
 function panic(){
 if(msg.sender!=owner)throw;
 if(!send(panicAddress,this.balance))throw;
-kill();
-}
-
-//destroy safe
-function kill(){
-if(msg.sender!=owner)throw;
-selfdestruct(owner);
 }
 
 }
